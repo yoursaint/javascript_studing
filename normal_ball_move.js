@@ -7,6 +7,7 @@ var dx = 2;
 var dy = -2;
 
 function draw() {
+    ctx.clearRect(0,0, canvas.width, canvas.height); // clear every component in this rectangle
     ctx.beginPath();
     ctx.arc(x, y, 10 ,0, Math.PI * 2); // x, y is center of circle
     ctx.fillStyle = "#0095DD";
