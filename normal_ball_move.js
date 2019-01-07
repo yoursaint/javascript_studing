@@ -10,7 +10,7 @@ function draw() {
     ctx.beginPath();
     ctx.arc(x, y, 10 ,0, Math.PI * 2); // x, y is center of circle
     ctx.fillStyle = "#0095DD";
-    ctx.fillStyle();
+    ctx.fill();
     ctx.closePath(); // ctx closed
     x += dx;
     y += dy;
