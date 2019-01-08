@@ -7,6 +7,49 @@ var dx = 2;
 var dy = -2;
 var ballRadius = 10;
 
+//paddle
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width - paddleWidth) / 2;
+
+//paddle control
+var rightPressed = false;
+var leftPressed = false;
+
+// key listener
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("Keyup", keyUpHandler, false);
+
+// key listener function
+function keydownHandler(e) {
+    if (e.keyCode == 39) {
+        rightPressed = true;
+    } else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if (e.keyCode == 39) {
+        rightPressed = false;
+    } else if (e.keyCode = 37) {
+        leftPressed = false;
+    }
+}
+
+// moving paddle
+
+
+//draw function
+
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddlex, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStye("#0095DD");
+    ctx.fill();
+    ctx.closePath();
+}
+
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius ,0, Math.PI * 2); // x, y is center of circle
@@ -38,7 +81,10 @@ function moveBall() {
     moveCirclesY();
 }// when this function call, circle will be moved
 
+function draw() {
+    moveBall();
+}
 
 
-setInterval(moveBall, 10); // when every 10 millsec, this function going to be called
+setInterval(draw, 10); // when every 10 millsec, this function going to be called
 
