@@ -16,12 +16,10 @@ var paddleX = (canvas.width - paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
 
-// key listener
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("Keyup", keyUpHandler, false);
+
 
 // key listener function
-function keydownHandler(e) {
+function keyDownHandler(e) {
     if (e.keyCode == 39) {
         rightPressed = true;
     } else if(e.keyCode == 37) {
@@ -36,6 +34,9 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
 }
+// key listener
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
 
 // moving paddle
 
@@ -44,8 +45,8 @@ function keyUpHandler(e) {
 
 function drawPaddle() {
     ctx.beginPath();
-    ctx.rect(paddlex, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStye("#0095DD");
+    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
 }
@@ -71,20 +72,34 @@ function moveCirclesY() {
 
     if (y > (canvas.height - ballRadius) || y < ballRadius) {
         dy = - dy;
+    } else if (y + dy > canvas.height - ballRadius) {
+        alert("GAME OVER");
+        document.location.reload();
     }
 }
 
 function moveBall() {
-    ctx.clearRect(0,0, canvas.width, canvas.height); // clear every component in this rectangle
     drawBall();
     moveCirclesX();
     moveCirclesY();
 }// when this function call, circle will be moved
 
+function movePaddle() {
+    drawPaddle();
+
+    if (rightPressed && (paddleX < canvas.width - paddleWidth)) {
+        paddleX += 4;
+    } else if (leftPressed &&( paddleX > 0)) {
+        paddleX -= 4;
+    }
+}
+
 function draw() {
+    ctx.clearRect(0,0, canvas.width, canvas.height); // clear every component in this rectangle
     moveBall();
+    movePaddle();
 }
 
 
-setInterval(draw, 10); // when every 10 millsec, this function going to be called
 
+setInterval(draw, 10); // when every 10 millsec, this function going to be called
