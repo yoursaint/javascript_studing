@@ -73,8 +73,12 @@ function moveCirclesY() {
     if (y > (canvas.height - ballRadius) || y < ballRadius) {
         dy = - dy;
     } else if (y + dy > canvas.height - ballRadius) {
-        alert("GAME OVER");
-        document.location.reload();
+        if(paddleX < x + dx && x + dx < paddleX + paddleWidth ) { 
+            //bounce!
+        } else {
+            alert("GAME OVER");
+            document.location.reload();
+        }
     }
 }
 
