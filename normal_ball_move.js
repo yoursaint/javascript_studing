@@ -31,7 +31,7 @@ var bricks = [];
 for(var c = 0; c < brickColumnCount; c++) {
     bricks[c] = [];
     for(var r = 0; r < brickRowCount; r++) {
-        brick[c][r] = { x: 0, y: 0};
+        bricks[c][r] = { x: 0, y: 0};
     }
 }
 
@@ -39,10 +39,12 @@ for(var c = 0; c < brickColumnCount; c++) {
 function drawBricks() {
     for(var c = 0; c < brickColumnCount; c++) {
         for(var r = 0; r < brickRowCount; r++) {
-            bricks[c][r].x = 0;
-            bricks[c][r].y = 0;
+            var brickX = (c*(brickWidth + brickPadding)) + brickoffsetLeft;
+            var brickY = (r*(brickHeight + brickPadding)) + brickOffsetTop;
+            bricks[c][r].x = brickX;
+            bricks[c][r].y = brickY;
             ctx.beginPath();
-            ctx.rect(0, 0, brickWidth, brickHeight);
+            ctx.rect(brickX, brickY, brickWidth, brickHeight);
             ctx.fillStyle = "#0095DD";
             ctx.fill();
             ctx.closePath();
@@ -133,6 +135,7 @@ function movePaddle() {
 
 function draw() {
     ctx.clearRect(0,0, canvas.width, canvas.height); // clear every component in this rectangle
+    drawBricks();
     moveBall();
     movePaddle();
 }
