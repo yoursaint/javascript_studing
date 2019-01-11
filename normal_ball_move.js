@@ -26,6 +26,15 @@ var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickoffsetLeft = 30;
 
+var bricks = [];
+
+for(var c = 0; c < brickColumnCount; c++) {
+    bricks[c] = [];
+    for(var r = 0; r < brickRowCount; r++) {
+        brick[c][r] = { x: 0, y: 0};
+    }
+}
+
 
 // key listener function
 function keyDownHandler(e) {
