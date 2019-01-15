@@ -37,6 +37,19 @@ for(var c = 0; c < brickColumnCount; c++) {
 
 var score = 0;
 
+// Listening for mouse movement
+
+function mouseMoveHandler(e) {
+    var relativeX = e.clientX - canvas.offsetLeft;     
+    if (relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX ;
+    }
+}
+
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+
+
 //win detection
 
 function checkWin() {
