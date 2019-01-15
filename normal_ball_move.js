@@ -37,12 +37,22 @@ for(var c = 0; c < brickColumnCount; c++) {
 
 var score = 0;
 
+var lives = 3;
+
+//giving the player some lives
+
+function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
+}
+
 // Listening for mouse movement
 
 function mouseMoveHandler(e) {
     var relativeX = e.clientX - canvas.offsetLeft;     
     if (relativeX > 0 && relativeX < canvas.width) {
-        paddleX = relativeX ;
+        paddleX = relativeX - paddleWidth/2;
     }
 }
 
@@ -56,7 +66,7 @@ function checkWin() {
     if(score == brickRowCount * brickColumnCount) {
         alert("YOU WIN, CONGRATULATIONS!");
         document.location.reload();
-        clearInterval(draw);
+        //clearInterval(draw);
     }
 }
 
@@ -163,8 +173,17 @@ function moveCirclesY() {
         if(paddleX < x + dx && x + dx < paddleX + paddleWidth ) { 
             //bounce!
         } else {
-            alert("GAME OVER");
-            document.location.reload();
+            lives--;
+            if(!lives) {
+                alert("GAME OVER");
+                document.location.reload();
+            } else {
+                x = canvas.width / 2;
+                y = canvas.height - 30;
+                dx = 2;
+                dy = -2;
+                paddleX = (canvas.width - paddleWidth) / 2;
+            }
         }
     }
 }
@@ -192,9 +211,11 @@ function draw() {
     movePaddle();
     collisionDetection();
     drawScore();
+    drawLives();
     checkWin();
+    requestAnimationFrame(draw);
 }
 
+draw();
 
-
-setInterval(draw, 10); // when every 10 millsec, this function going to be called
+//setInterval(draw, 10); // when every 10 millsec, this function going to be called
